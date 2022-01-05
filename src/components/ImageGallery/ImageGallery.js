@@ -1,21 +1,37 @@
 import { Component } from 'react';
 
 export default class ImageGallery extends Component {
+  state = {
+    galery: null,
+  };
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.name !== this.props.name) {
       fetch(
         `https://pixabay.com/api/?key=23676314-92d729b6642f8dfd3ee72d5a9&q=${this.props.name}&image_type=photo`,
       )
         .then(res => res.json())
-        .then(console.log);
+        .then(galery => this.setState({ galery }));
+    }
+    console.log(this.state.galery);
+    if (this.state.galery) {
+      console.log(this.state.galery.hits);
     }
   }
 
   render() {
     return (
-      <ul>
-        <p>{this.props.name}</p>
-      </ul>
+      <>
+        {this.state.galery && (
+          <ul>
+            {this.state.galery.hits.map(item => (
+              <li key={item.id}>
+                <img src={item.previewURL} alt={'logo'} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </>
     );
   }
 }
