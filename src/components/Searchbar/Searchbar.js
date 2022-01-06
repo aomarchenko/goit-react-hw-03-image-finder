@@ -19,14 +19,6 @@ class Searchbar extends Component {
     }
 
     this.props.onSubmit(this.state.name);
-
-    this.reset();
-  };
-
-  reset = () => {
-    this.setState({
-      name: '',
-    });
   };
 
   render() {
