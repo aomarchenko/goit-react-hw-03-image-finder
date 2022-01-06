@@ -6,6 +6,7 @@ class Searchbar extends Component {
   state = {
     name: '',
   };
+
   handleInputChange = event => {
     this.setState({ [event.currentTarget.name]: event.currentTarget.value });
   };

@@ -8,13 +8,10 @@ export default class ImageGallery extends Component {
     loading: false,
   };
 
-  galeryReset = () => {
-    this.setState({ page: null });
-  };
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.name !== this.props.name || prevState.page !== this.state.page) {
       this.setState({ loading: true });
+
       fetch(
         `https://pixabay.com/api/?key=23676314-92d729b6642f8dfd3ee72d5a9&q=${this.props.name}&image_type=photo&per_page=12&page=${this.state.page}`,
       )
@@ -22,13 +19,15 @@ export default class ImageGallery extends Component {
         .then(galery => this.setState({ galery }))
         .finally(() => this.setState({ loading: false }));
     }
+    if (prevProps.name !== this.props.name) {
+      this.setState({ page: 1 });
+    }
   }
 
   nextPage = prevProps => {
     this.setState({ page: this.state.page + 1 });
   };
-
-  render(prevState) {
+  render() {
     console.log(this.state.page);
 
     return (
