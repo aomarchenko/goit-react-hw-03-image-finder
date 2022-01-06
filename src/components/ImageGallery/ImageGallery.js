@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Loader from 'react-loader-spinner';
+import Button from '../Button/Button';
 export default class ImageGallery extends Component {
   state = {
     galery: null,
@@ -38,9 +39,10 @@ export default class ImageGallery extends Component {
             <ImageGalleryItem hits={this.state.galery.hits} />
           </ul>
         )}
-        <button type="button" onClick={this.nextPage}>
+        <Button onClick={this.nextPage} />
+        {/* <button type="button" onClick={this.nextPage}>
           Load more
-        </button>
+        </button> */}
       </>
     );
   }
