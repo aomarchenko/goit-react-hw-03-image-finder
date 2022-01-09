@@ -21,15 +21,12 @@ export default class Modal extends Component {
   render() {
     const array = this.props.hits;
     const imageId = this.props.id;
-    // console.log(image.imageId);
-    // const image = array.filter(img => img.includes(6889575));
     const image = array.filter(img => img.id == imageId);
-    console.log(image[0].largeImageURL);
-    // array.filter(img => img.id.includes.e.target.id);
+
     return createPortal(
       <div className={styles.Overlay} onClick={this.props.toggle}>
         <div className={styles.Modal}>
-          <img src={image[0].largeImageURL} />
+          <img src={image[0].largeImageURL} alt={image[0].tags} />
         </div>
       </div>,
       modalRoot,

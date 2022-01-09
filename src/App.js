@@ -3,11 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Modal from './components/Modal/Modal';
-// import Modal from './components/Modal/Modal';
-
 import React, { Component } from 'react';
-
-// import shortid from 'shortid';
 
 class ImageFinder extends Component {
   state = {
@@ -16,15 +12,12 @@ class ImageFinder extends Component {
     gallery: null,
     id: null,
   };
-  // toggleModal = () => {
-  //   this.setState(state => ({ showModal: !this.state.showModal }));
-  // };
+
   searchbarSubmit = name => {
     this.setState({ name });
   };
 
   galleryFetch = gallery => {
-    console.log(gallery);
     this.setState({ gallery });
   };
 
@@ -35,7 +28,6 @@ class ImageFinder extends Component {
     this.setState({ id });
   };
   render() {
-    console.log(this.state.id);
     return (
       <>
         <Searchbar onSubmit={this.searchbarSubmit} />

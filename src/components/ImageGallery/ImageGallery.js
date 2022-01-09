@@ -29,15 +29,12 @@ export default class ImageGallery extends Component {
     if (prevProps.gallery !== this.state.galery) {
       this.props.onFetch(this.state.galery);
     }
-    console.log(this.state.galery);
   }
 
   nextPage = prevProps => {
     this.setState({ page: this.state.page + 1 });
   };
   mouseClik = e => {
-    console.log('kliknuli');
-    console.log(e.target.id);
     this.props.toggle();
     this.props.onImageClick(e.target.id);
   };
