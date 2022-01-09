@@ -3,18 +3,14 @@ import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Loader from 'react-loader-spinner';
 import Button from '../Button/Button';
 import styles from '../ImageGallery/ImageGallery.module.css';
-import Modal from '../Modal/Modal';
 
 export default class ImageGallery extends Component {
   state = {
     galery: null,
     page: 1,
     loading: false,
-    showModal: false,
   };
-  toggleModal = () => {
-    this.setState(state => ({ showModal: !this.state.showModal }));
-  };
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.name !== this.props.name || prevState.page !== this.state.page) {
       this.setState({ loading: true });
@@ -33,10 +29,17 @@ export default class ImageGallery extends Component {
     if (prevProps.gallery !== this.state.galery) {
       this.props.onFetch(this.state.galery);
     }
+    console.log(this.state.galery);
   }
 
   nextPage = prevProps => {
     this.setState({ page: this.state.page + 1 });
+  };
+  mouseClik = e => {
+    console.log('kliknuli');
+    console.log(e.target.id);
+    this.props.toggle();
+    this.props.onImageClick(e.target.id);
   };
   render() {
     return (
@@ -45,7 +48,7 @@ export default class ImageGallery extends Component {
           <Loader className={styles.Spinner} type="Audio" color="#00BFFF" height={80} width={80} />
         )}
         {this.state.galery && (
-          <ul className={styles.ImageGallery}>
+          <ul className={styles.ImageGallery} onClick={this.mouseClik}>
             <ImageGalleryItem hits={this.state.galery.hits} />
           </ul>
         )}

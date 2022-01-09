@@ -14,6 +14,7 @@ class ImageFinder extends Component {
     name: '',
     showModal: false,
     gallery: null,
+    id: null,
   };
   // toggleModal = () => {
   //   this.setState(state => ({ showModal: !this.state.showModal }));
@@ -24,12 +25,17 @@ class ImageFinder extends Component {
 
   galleryFetch = gallery => {
     console.log(gallery);
-    this.setState({ gallery: gallery });
+    this.setState({ gallery });
   };
 
+  toggleModal = () => {
+    this.setState(state => ({ showModal: !this.state.showModal }));
+  };
+  onImageClick = id => {
+    this.setState({ id });
+  };
   render() {
-    console.log(this.state.gallery);
-
+    console.log(this.state.id);
     return (
       <>
         <Searchbar onSubmit={this.searchbarSubmit} />
@@ -37,8 +43,16 @@ class ImageFinder extends Component {
           name={this.state.name}
           onFetch={this.galleryFetch}
           gallery={this.state.gallery}
+          toggle={this.toggleModal}
+          onImageClick={this.onImageClick}
         />
-        {this.state.showModal && <Modal hits={this.state.gallery.hits}></Modal>}
+        {this.state.showModal && (
+          <Modal
+            hits={this.state.gallery.hits}
+            toggle={this.toggleModal}
+            id={this.state.id}
+          ></Modal>
+        )}
         <ToastContainer autoClose={3000} />
       </>
     );
