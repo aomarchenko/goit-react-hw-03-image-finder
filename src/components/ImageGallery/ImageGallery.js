@@ -2,13 +2,19 @@ import { Component } from 'react';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Loader from 'react-loader-spinner';
 import Button from '../Button/Button';
+import styles from '../ImageGallery/ImageGallery.module.css';
+import Modal from '../Modal/Modal';
+
 export default class ImageGallery extends Component {
   state = {
     galery: null,
     page: 1,
     loading: false,
+    showModal: false,
   };
-
+  toggleModal = () => {
+    this.setState(state => ({ showModal: !this.state.showModal }));
+  };
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.name !== this.props.name || prevState.page !== this.state.page) {
       this.setState({ loading: true });
@@ -20,8 +26,12 @@ export default class ImageGallery extends Component {
         .then(galery => this.setState({ galery }))
         .finally(() => this.setState({ loading: false }));
     }
+
     if (prevProps.name !== this.props.name) {
       this.setState({ page: 1 });
+    }
+    if (prevProps.gallery !== this.state.galery) {
+      this.props.onFetch(this.state.galery);
     }
   }
 
@@ -29,20 +39,18 @@ export default class ImageGallery extends Component {
     this.setState({ page: this.state.page + 1 });
   };
   render() {
-    console.log(this.state.page);
-
     return (
       <>
-        {this.state.loading && <Loader type="Audio" color="#00BFFF" height={80} width={80} />}
+        {this.state.loading && (
+          <Loader className={styles.Spinner} type="Audio" color="#00BFFF" height={80} width={80} />
+        )}
         {this.state.galery && (
-          <ul>
+          <ul className={styles.ImageGallery}>
             <ImageGalleryItem hits={this.state.galery.hits} />
           </ul>
         )}
-        <Button onClick={this.nextPage} />
-        {/* <button type="button" onClick={this.nextPage}>
-          Load more
-        </button> */}
+
+        {this.state.galery && <Button onClick={this.nextPage} />}
       </>
     );
   }
